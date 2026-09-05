@@ -68,14 +68,13 @@ function App() {
       boxSizing: 'border-box'
     }}>
 
-      {/* زر الثيم */}
       <button 
         onClick={toggleTheme}
         style={{
           position: 'absolute',
           top: '20px',
           right: '20px',
-          padding: '8px 14px',
+          padding: '10px 18px',
           borderRadius: '20px',
           border: 'none',
           backgroundColor: isDark ? '#334155' : '#e2e8f0',
@@ -90,33 +89,32 @@ function App() {
         {isDark ? '☀️ Light' : '🌙 Dark'}
       </button>
 
-      {/* الحاوية الرئيسية للمؤقت */}
       <div style={{
         backgroundColor: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(10px)',
-        padding: '30px 20px',
+        padding: '40px 50px',
         borderRadius: '24px',
         boxShadow: isDark ? '0 20px 25px -5px rgba(0, 0, 0, 0.5)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
         border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.05)',
         width: '100%',
-        maxWidth: '500px',
+        maxWidth: '650px',
       }}>
-        {/* حجم خط ديناميكي يتغير حسب شاشة الموبايل والكمبيوتر */}
-        <h1 style={{
-          fontSize: 'clamp(3rem, 12vw, 5.5rem)',
-          letterSpacing: '1px',
-          margin: '0 0 25px 0',
+
+        <h1 className="timer-display" style={{
+          fontSize: '7rem', 
+          letterSpacing: '2px',
+          margin: '0 0 30px 0',
           fontVariantNumeric: 'tabular-nums',
-          wordBreak: 'keep-all'
+          whiteSpace: 'nowrap'
         }}>
           {hours}:{minutes}:{seconds}
         </h1>
 
-        {/* الأزرار تتكيف وتتجمع بشكل عمودي لو شاشة الموبايل صغرت جداً */}
+        {/* الأزرار */}
         <div style={{ 
           display: 'flex', 
-          gap: '10px', 
+          gap: '15px', 
           justifyContent: 'center',
           flexWrap: 'wrap' 
         }}>
@@ -128,6 +126,14 @@ function App() {
           <button onClick={handleReset} style={buttonStyle('#64748b')}>إعادة ضبط</button>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .timer-display {
+            font-size: 3.2rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -136,15 +142,15 @@ const buttonStyle = (bgColor) => ({
   backgroundColor: bgColor,
   color: 'white',
   border: 'none',
-  padding: '10px 20px',
+  padding: '12px 24px',
   borderRadius: '12px',
-  fontSize: '1.1rem',
+  fontSize: '1.2rem',
   fontWeight: 'bold',
   cursor: 'pointer',
   boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
   transition: 'transform 0.1s ease, opacity 0.2s',
-  flex: '1 1 100px', // يجعل الأزرار مرنة في الهواتف
-  minWidth: '100px'
+  flex: '1 1 100px',
+  minWidth: '110px'
 });
 
 export default App;
