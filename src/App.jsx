@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-
   const [totalSeconds, setTotalSeconds] = useState(() => {
     const savedTime = localStorage.getItem('stopwatch_time');
     return savedTime ? parseInt(savedTime, 10) : 0;
@@ -65,49 +64,62 @@ function App() {
       transition: 'all 0.4s ease',
       position: 'relative',
       margin: 0,
-      padding: 0
+      padding: '20px',
+      boxSizing: 'border-box'
     }}>
 
+      {/* زر الثيم */}
       <button 
         onClick={toggleTheme}
         style={{
           position: 'absolute',
           top: '20px',
           right: '20px',
-          padding: '10px 18px',
+          padding: '8px 14px',
           borderRadius: '20px',
           border: 'none',
           backgroundColor: isDark ? '#334155' : '#e2e8f0',
           color: isDark ? '#fff' : '#000',
           cursor: 'pointer',
           fontWeight: 'bold',
-          fontSize: '1.5rem',
+          fontSize: '1rem',
           boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
           transition: '0.3s'
         }}
       >
-        {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        {isDark ? '☀️ Light' : '🌙 Dark'}
       </button>
 
+      {/* الحاوية الرئيسية للمؤقت */}
       <div style={{
         backgroundColor: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(10px)',
-        padding: '40px 60px',
+        padding: '30px 20px',
         borderRadius: '24px',
         boxShadow: isDark ? '0 20px 25px -5px rgba(0, 0, 0, 0.5)' : '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
         border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.05)',
+        width: '100%',
+        maxWidth: '500px',
       }}>
+        {/* حجم خط ديناميكي يتغير حسب شاشة الموبايل والكمبيوتر */}
         <h1 style={{
-          fontSize: '8rem',
-          letterSpacing: '2px',
-          margin: '0 0 30px 0',
-          fontVariantNumeric: 'tabular-nums'
+          fontSize: 'clamp(3rem, 12vw, 5.5rem)',
+          letterSpacing: '1px',
+          margin: '0 0 25px 0',
+          fontVariantNumeric: 'tabular-nums',
+          wordBreak: 'keep-all'
         }}>
           {hours}:{minutes}:{seconds}
         </h1>
 
-        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+        {/* الأزرار تتكيف وتتجمع بشكل عمودي لو شاشة الموبايل صغرت جداً */}
+        <div style={{ 
+          display: 'flex', 
+          gap: '10px', 
+          justifyContent: 'center',
+          flexWrap: 'wrap' 
+        }}>
           {isRunning ? (
             <button onClick={handleStop} style={buttonStyle('#ef4444')}>إيقاف</button>
           ) : (
@@ -124,13 +136,15 @@ const buttonStyle = (bgColor) => ({
   backgroundColor: bgColor,
   color: 'white',
   border: 'none',
-  padding: '12px 24px',
+  padding: '10px 20px',
   borderRadius: '12px',
-  fontSize: '1.5rem',
+  fontSize: '1.1rem',
   fontWeight: 'bold',
   cursor: 'pointer',
   boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
   transition: 'transform 0.1s ease, opacity 0.2s',
+  flex: '1 1 100px', // يجعل الأزرار مرنة في الهواتف
+  minWidth: '100px'
 });
 
 export default App;
